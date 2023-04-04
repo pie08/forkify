@@ -31,6 +31,12 @@ class addRecipeView extends View {
     this._overlay.addEventListener('click', this.toggleWindow.bind(this));
   }
 
+  /**
+   *
+   * @param {function} handler Handler function in controller.js
+   * @does Gets form data on submission and returns it
+   * @returns {object} Returns object containing form data
+   */
   addHandlerUpload(handler) {
     this._parentElement.addEventListener('submit', function (e) {
       e.preventDefault();

@@ -7,11 +7,17 @@ export const state = {
     query: '',
     results: [],
     page: 1,
+    totalPages: 1,
     resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
 };
 
+/**
+ *
+ * @param {object} data Recipe object
+ * @returns {object} Formatted API response data to JSON format
+ */
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
   return {
@@ -30,7 +36,7 @@ const createRecipeObject = function (data) {
 /**
  *
  * @param {string} id ID of recipe that will be loaded
- * @returns {undefined} Loads recipe to state
+ * @does Loads recipe to state
  */
 export const loadRecipe = async function (id) {
   try {
@@ -48,6 +54,7 @@ export const loadRecipe = async function (id) {
 /**
  *
  * @param {string} query Search query
+ * @does Gets results and stores array of recipe objects in state search results
  */
 export const loadSearchResults = async function (query) {
   try {
@@ -65,11 +72,19 @@ export const loadSearchResults = async function (query) {
       };
     });
     state.search.page = 1;
+    state.search.totalPages = Math.ceil(
+      state.search.results.length / RES_PER_PAGE
+    );
   } catch (err) {
     throw err;
   }
 };
 
+/**
+ *
+ * @param {number} page The pagination page
+ * @returns {array} An array of recipes
+ */
 export const getSearchResultsPage = function (page = state.search.page) {
   state.search.page = page;
 
@@ -92,6 +107,11 @@ const persistBookmarks = function () {
   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 
+/**
+ *
+ * @param {object} recipe Recipe object to be added to the bookmarks array
+ * @does Adds recipe object to bookmarks array in state and stores to local storage
+ */
 export const addBookmark = function (recipe) {
   // Add bookmark
   state.bookmarks.push(recipe);
@@ -124,14 +144,19 @@ const clearBookmarks = function () {
 };
 // clearBookmarks();
 
+/**
+ *
+ * @param {object} newRecipe Data from add recipe form
+ * @does Upload formatted recipe data to API then store recipe data from API in state and bookmarks
+ */
 export const uploadRecipe = async function (newRecipe) {
   try {
     console.log(Object.entries(newRecipe));
-    const ingredients = Object.entries(newRecipe)
+    const ingredients = Object.entries(newRecipe) // Array of ingredient objects
+      // Getting ingredient fields that are not empty
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
         const ingArr = ing[1].split(',').map(el => el.trim());
-        // const ingArr = ing[1].replaceAll(' ', '').split(',');
         if (ingArr.length !== 3)
           throw new Error(
             'Wrong ingredient format! Please use the correct format ;)'

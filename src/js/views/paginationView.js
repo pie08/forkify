@@ -17,6 +17,7 @@ class PaginationView extends View {
 
   _generateMarkup() {
     const curPage = this._data.page;
+    const totalPages = this._data.totalPages;
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
@@ -41,19 +42,21 @@ class PaginationView extends View {
       </svg>
     </button>`;
 
+    const textNumPages = `<p class="text--page-num">Page ${curPage} of ${totalPages}</p>`;
+
     // Page 1, there are other pages
     if (curPage === 1 && numPages > 1) {
-      return buttonMarkupNext;
+      return buttonMarkupNext + textNumPages;
     }
 
     // Last page
     if (curPage === numPages && numPages > 1) {
-      return buttonMarkupPrev;
+      return buttonMarkupPrev + textNumPages;
     }
 
     // Other page
     if (curPage < numPages) {
-      return buttonMarkupPrev + buttonMarkupNext;
+      return buttonMarkupPrev + buttonMarkupNext + textNumPages;
     }
 
     // Page 1, there are no other pages

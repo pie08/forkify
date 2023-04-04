@@ -5,3 +5,18 @@
 @import 'searchResults';
 @import 'recipe';
 @import 'upload';
+
+// Added CSS
+
+.pagination {
+  position: relative;
+}
+
+.text--page-num {
+  font-size: 18px;
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
