@@ -138,7 +138,7 @@ export const deleteBookmark = function (id) {
  * @does Adds ingredients of current recipe to cart
  */
 export const addToCart = function () {
-  const ingredients = state.recipe.ingredients;
+  const ingredients = JSON.parse(JSON.stringify(state.recipe.ingredients));
   console.log(ingredients);
   const cart = state.cart;
   ingredients.map(ing => {
@@ -146,11 +146,15 @@ export const addToCart = function () {
     if (inCart) {
       const index = cart.findIndex(el => el.description === ing.description);
       // console.log(index);
-      console.log(Number(cart[index].quantity) + Number(ing.quantity));
-      cart[index].quantity =
-        Number(cart[index].quantity) + Number(ing.quantity);
+      // console.log(Number(cart[index].quantity) + Number(ing.quantity));
+      console.log(state.recipe.ingredients);
+      console.log(cart[index].quantity);
+      cart[index].quantity
+        ? (cart[index].quantity =
+            Number(cart[index].quantity) + Number(ing.quantity))
+        : null;
     } else {
-      console.log(ing);
+      // console.log(ing);
       cart.push(ing);
     }
   });

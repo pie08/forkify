@@ -144,6 +144,8 @@ controlAddCart = function () {
 
   // 2) Render cart
   shoppingCartView.render(model.state.cart, true);
+
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {
