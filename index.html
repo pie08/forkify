@@ -37,6 +37,43 @@
         <nav class="nav">
           <ul class="nav__list">
             <li class="nav__item">
+              <button class="nav__btn nav__btn--cart">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#icon-edit"></use>
+                </svg>
+                <span>Shopping Cart</span>
+              </button>
+              <div class="cart">
+                <ul class="cart__list">
+                  <div class="message">
+                    <div>
+                      <svg>
+                        <use href="src/img/icons.svg#icon-smile"></use>
+                      </svg>
+                    </div>
+                    <p>
+                      Nothing in your cart yet!<br />
+                      Add something to get started ;)
+                    </p>
+                  </div>
+
+                  <!-- <li class="preview">
+                    <a class="preview__link" href="#23456">
+                      <figure class="preview__fig">
+                        <img src="src/img/test-1.jpg" alt="Test" />
+                      </figure>
+                      <div class="preview__data">
+                        <h4 class="preview__name">
+                          Pasta with Tomato Cream ...
+                        </h4>
+                        <p class="preview__publisher">The Pioneer Woman</p>
+                      </div>
+                    </a>
+                  </li> -->
+                </ul>
+              </div>
+            </li>
+            <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
                   <use href="src/img/icons.svg#icon-edit"></use>
@@ -328,6 +365,27 @@
           <span>Upload</span>
         </button>
       </form>
+    </div>
+
+    <div class="cart-window hidden">
+      <button class="btn--close-modal">&times;</button>
+      <ul class="cart-list">
+        <div class="message">
+          <div>
+            <svg>
+              <use href="src/img/icons.svg#icon-smile"></use>
+            </svg>
+          </div>
+          <p>No bookmarks yet. Find a nice recipe and bookmark it :)</p>
+        </div>
+
+        <!-- <li class="cart-item">
+          <div class="cart-data">
+            <h4 class="cart-title">Milk</h4>
+            <p class="cart-quantity">1 Gallon</p>
+          </div>
+        </li> -->
+      </ul>
     </div>
   </body>
 </html>

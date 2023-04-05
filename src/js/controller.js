@@ -6,6 +6,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import shoppingCartView from './views/shoppingCartView.js';
 
 // Polyfills
 import 'core-js/stable';
@@ -137,11 +138,20 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+controlAddCart = function () {
+  // 1) Add ingredients to cart
+  model.addToCart();
+
+  // 2) Render cart
+  shoppingCartView.render(model.state.cart, true);
+};
+
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
+  recipeView.addHandlerAddCart(controlAddCart);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);

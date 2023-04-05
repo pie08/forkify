@@ -11,6 +11,7 @@ export const state = {
     resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
+  cart: [],
 };
 
 /**
@@ -131,6 +132,28 @@ export const deleteBookmark = function (id) {
   if (id === state.recipe.id) state.recipe.bookmarked = false;
 
   persistBookmarks();
+};
+
+/**
+ * @does Adds ingredients of current recipe to cart
+ */
+export const addToCart = function () {
+  const ingredients = state.recipe.ingredients;
+  console.log(ingredients);
+  const cart = state.cart;
+  ingredients.map(ing => {
+    const inCart = cart.find(el => el.description === ing.description);
+    if (inCart) {
+      const index = cart.findIndex(el => el.description === ing.description);
+      // console.log(index);
+      console.log(Number(cart[index].quantity) + Number(ing.quantity));
+      cart[index].quantity =
+        Number(cart[index].quantity) + Number(ing.quantity);
+    } else {
+      console.log(ing);
+      cart.push(ing);
+    }
+  });
 };
 
 export const init = function () {

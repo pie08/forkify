@@ -1,19 +1,22 @@
 import View from './view.js';
+import previewView from './previewView.js';
 import icons from 'url:../../img/icons.svg';
+import { Fraction } from 'fraction.js';
 
-class addRecipeView extends View {
-  _parentElement = document.querySelector('.upload');
-  _message = 'Recipe was successfully uploaded :)';
+class shoppingCartView extends View {
+  _parentElement = document.querySelector('.cart-list');
+  _errorMessage = 'Nothing in your cart yet! Add something to get started ;)';
 
-  _window = document.querySelector('.add-recipe-window');
+  _window = document.querySelector('.cart-window');
   _overlay = document.querySelector('.overlay');
-  _btnOpen = document.querySelector('.nav__btn--add-recipe');
+  _btnOpen = document.querySelector('.nav__btn--cart');
   _btnClose = document.querySelectorAll('.btn--close-modal');
 
   constructor() {
     super();
     this._addHandlerShowWindow();
     this._addHandlerHideWindow();
+    console.log(this._parentElement);
   }
 
   showWindow() {
@@ -42,23 +45,22 @@ class addRecipeView extends View {
     window.addEventListener('load', handler);
   }
 
-  /**
-   *
-   * @param {function} handler Handler function in controller.js
-   * @does Gets form data on submission and returns it
-   * @returns {object} Returns object containing form data
-   */
-  addHandlerUpload(handler) {
-    this._parentElement.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const dataArr = [...new FormData(this)];
-      const data = Object.fromEntries(dataArr);
-
-      handler(data);
-    });
+  _generateMarkup() {
+    return this._data
+      .map(
+        ing => `
+          <li class="cart-item">
+            <div class="cart-data">
+              <h4 class="cart-title">${ing.description}</h4>
+              <p class="cart-quantity">${
+                ing.quantity ? new Fraction(ing.quantity).toFraction(true) : ''
+              } ${ing.unit}</p>
+            </div>
+          </li>
+          `
+      )
+      .join('');
   }
-
-  _generateMarkup() {}
 }
 
-export default new addRecipeView();
+export default new shoppingCartView();
