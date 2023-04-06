@@ -33,6 +33,14 @@ class RecipeView extends View {
     });
   }
 
+  addHandlerAddCart(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--add-cart');
+      if (!btn) return;
+      handler();
+    });
+  }
+
   _generateMarkup() {
     return `
   <figure class="recipe__fig">
@@ -81,6 +89,11 @@ class RecipeView extends View {
       </div>
     </div>
 
+    <button class="btn--round btn--add-cart">
+      <svg class="">
+        <use href="${icons}#icon-bookmark"></use>
+      </svg>
+    </button>
     <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
       <svg>
         <use href="${icons}#icon-user"></use>
