@@ -138,7 +138,7 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
-controlAddCart = function () {
+const controlAddCart = function () {
   // 1) Add ingredients to cart
   model.addToCart();
 
